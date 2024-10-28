@@ -8,6 +8,7 @@ export class GifsService {
     private GIPHY_KEY: string = 'U4kz5GyESiiUwztMgBFXRZvI40MdBrnS';
     private BASE_URL: string = 'https://api.giphy.com/v1/gifs/search';
     constructor(private httpClient: HttpClient) {
+        this.loadLocalStorage();
 
     }
 
@@ -36,6 +37,12 @@ export class GifsService {
                     console.log({ data: res.data });
                 }
             )
+    }
+    loadLocalStorage(): void {
+        var history = localStorage.getItem("history");
+        if (!history) return;
+        this._tagHistory = JSON.parse(history);
+        this.searchTag(this.tagHistory[0]);
     }
 
     saveLocalStorage(): void {
