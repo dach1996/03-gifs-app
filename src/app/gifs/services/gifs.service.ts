@@ -33,9 +33,13 @@ export class GifsService {
             .subscribe(
                 res => {
                     this.gifList = res.data;
-                    console.log({ data: res.data});
+                    console.log({ data: res.data });
                 }
             )
+    }
+
+    saveLocalStorage(): void {
+        localStorage.setItem("history", JSON.stringify(this.tagHistory));
     }
 
     organizeHistory(tag: string): void {
@@ -45,6 +49,7 @@ export class GifsService {
         }
         this._tagHistory.unshift(tag);
         this._tagHistory = this.tagHistory.splice(0, 10);
+        this.saveLocalStorage();
     }
 
 }
